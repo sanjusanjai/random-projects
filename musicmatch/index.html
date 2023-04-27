@@ -1,0 +1,33 @@
+<html>
+	<head lang="en">
+		<script type="text/javascript" src="brython.js"></script>
+		<script type="text/javascript" src="brython_modules.js"></script>		
+	</head>
+	<link href="stylesheet.css" rel="stylesheet">
+	<body onload="brython({debug:2})">
+		<button id='enter_btn'>Get lyrics</button><br>
+		<label for="artist">Artist:</label>
+		<textarea id='artist' name='artist'></textarea><br>
+		<label for="song_name">Song:</label>
+		<textarea name="song_name" id="song_name"></textarea><br>
+		<span id='zone1' class='zone'></span>
+	<script type="text/python">
+		from browser import document, alert,html
+		import json
+		#from parsel import *
+		#import selector
+		def get_values(event):
+			artist_name=document['artist'].value
+			song_name=document['song_name'].value
+			path = "-".join([*artist_name.split(), *song_name.split(), "lyrics"])
+			#response=get_lyrics(path)
+			document["zone1"].clear()
+			document["zone1"] <= (f"{path}")
+		
+		
+		document["enter_btn"].bind("click", get_values)
+		
+	</script>
+
+	</body>
+</html>

@@ -1,0 +1,27 @@
+https://www.azlyrics.com/lyrics/dhanush/visiri.html
+https://www.azlyrics.com/lyrics/brunomars/24kmagic.html
+https://www.azlyrics.com/lyrics/brunomars/leavethedooropen.html
+
+		from requests import get
+		HOST = {
+			"genius":"https://genius.com",
+			"az":"https://www.azlyrics.com/lyrics"
+		}
+		XPATHS = {
+			"lyrics": "//div[contains(@class, 'Lyrics__Container-sc-1ynbvzw-6')]/descendant-or-self::*/text()",
+			"404": "//div[contains(@class, 'render_404')]",
+			"azlyrics":"/html/body/div[2]/div/div[2]/div[5]"
+		}
+
+		def get_lyrics(path):
+			response = ""
+			while not response:
+				S = Selector(get(f"{HOST['genius']}/{path}").text)
+
+				# get all lyrics if it exists
+				lyrics= S.xpath(XPATHS["lyrics"]).getall()
+				response = "\n".join(lyrics)
+
+				# check link validity
+				check_404 = S.xpath(XPATHS["404"])
+		return response
